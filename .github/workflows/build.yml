@@ -1,0 +1,23 @@
+name: Build & Push Container Image
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    # x86_64 runner so the resulting image is linux/amd64 (matches prod cluster).
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}
+          username: nologin
+          password: ${{ secrets.SCALEWAY_API_KEY }}
+
+      - run: |
+          docker build -t ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/dodofarm/simple-counter:latest .
+          docker push ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/dodofarm/simple-counter:latest
