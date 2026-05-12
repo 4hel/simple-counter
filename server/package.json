@@ -1,0 +1,30 @@
+{
+  "name": "@simple-counter/server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "db:setup-credentials": "node scripts/setup-db-credentials.mjs",
+    "db:test": "tsx scripts/db-test.ts",
+    "prisma:generate": "node scripts/run-prisma.mjs generate",
+    "prisma:migrate": "node scripts/run-prisma.mjs migrate dev --name init",
+    "prisma:push": "node scripts/run-prisma.mjs db push"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "mysql2": "^3.15.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "prisma": "^6.8.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

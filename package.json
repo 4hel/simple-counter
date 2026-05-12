@@ -1,0 +1,35 @@
+{
+  "name": "simple-counter",
+  "version": "1.0.0",
+  "description": "Monorepo with Vue counter app and Express API",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:server": "npm run dev -w @simple-counter/server",
+    "dev:client": "npm run dev -w @simple-counter/client",
+    "db:setup-credentials": "npm run db:setup-credentials -w @simple-counter/server",
+    "db:test": "npm run db:test -w @simple-counter/server",
+    "prisma:migrate": "npm run prisma:migrate -w @simple-counter/server",
+    "prisma:push": "npm run prisma:push -w @simple-counter/server",
+    "prisma:generate": "npm run prisma:generate -w @simple-counter/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mthoericht/simple-counter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mthoericht/simple-counter/issues"
+  },
+  "homepage": "https://github.com/mthoericht/simple-counter#readme",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
