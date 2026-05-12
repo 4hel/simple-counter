@@ -118,3 +118,33 @@ Danach:
 
 - Frontend: `http://localhost:5173`
 - API: `http://localhost:3000/api/counter`
+
+## Production: Client ueber den Server ausliefern
+
+Der Server kann den gebauten Client (statische Dateien) direkt mit ausliefern.
+Dazu in `server/.env` die Variable `STATIC_DIR` auf das Build-Verzeichnis setzen
+(absoluter Pfad oder relativ zum Arbeitsverzeichnis des Server-Prozesses):
+
+```bash
+# In server/.env
+STATIC_DIR=../client/dist
+```
+
+Build & Start:
+
+```bash
+npm --workspace client run build
+npm --workspace server run build
+npm --workspace server start
+```
+
+Verhalten:
+
+- `GET /` liefert `index.html`.
+- Assets unter `STATIC_DIR` (z. B. `/assets/...`, `/favicon.svg`) werden direkt ausgeliefert.
+- Alle uebrigen Nicht-API-Routen liefern ebenfalls `index.html` (SPA-Fallback,
+  damit Reloads auf Client-Routen funktionieren).
+- `/api/*` bleibt davon unberuehrt; unbekannte API-Pfade liefern weiterhin `404`.
+- Wenn `STATIC_DIR` nicht gesetzt ist oder das Verzeichnis keine `index.html`
+  enthaelt, wird kein Static-Serving aktiviert (typisch fuer den Dev-Modus,
+  in dem Vite das Frontend bedient).
