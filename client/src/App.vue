@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-const apiBaseUrl = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+// In production the SPA is served by the Express server itself, so fetches
+// are same-origin (relative paths like "/api/counter"). In dev, set
+// VITE_API_URL=http://localhost:3000 in client/.env to talk to the API on
+// its own port instead of going through Vite's dev server.
+const apiBaseUrl = import.meta.env.VITE_API_URL ?? "";
 const value = ref<number | null>(null);
 const loading = ref(false);
 const error = ref("");

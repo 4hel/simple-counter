@@ -18,6 +18,8 @@ jobs:
           username: nologin
           password: ${{ secrets.SCALEWAY_API_KEY }}
 
+      # CONTAINER_REGISTRY_ENDPOINT already includes the "dodofarm" namespace
+      # (e.g. rg.fr-par.scw.cloud/dodofarm), so we just append the image name.
       - run: |
-          docker build -t ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/dodofarm/simple-counter:latest .
-          docker push ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/dodofarm/simple-counter:latest
+          docker build -t ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/simple-counter:latest .
+          docker push ${{ secrets.CONTAINER_REGISTRY_ENDPOINT }}/simple-counter:latest
